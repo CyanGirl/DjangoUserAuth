@@ -10,10 +10,14 @@ Hello , {{user.username}}!
 <br />
 {%endif%}
 
+<br />
+<p>Here you can add Hobby for each user who is logged in..</p>
+<p>Then You can understand how the database works with keys..</p>
 <div>
   {%if user.is_authenticated %}
   <a href="{% url 'logout' %}">Logout</a>
   <a href="{% url 'password_change' %}">Change Password</a>
+  <a href="{% url 'viewhobby' %}">See Hobby</a>
   {% else %}
   <a href="{%url 'login' %}">Login</a>
   {%endif%}

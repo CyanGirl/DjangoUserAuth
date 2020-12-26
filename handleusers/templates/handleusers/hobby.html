@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Hi {{user}}...</h2>
+<h2>Lets hear about your Hobby...</h2>
+<br />
+<form method="POST">
+  {% csrf_token %} {{form.as_p}}
+  <input type="submit" value="Add Hobby" />
+</form>
+<a href="{% url 'dashboard' %}">Back to dashboard..</a>
+{% endblock %}

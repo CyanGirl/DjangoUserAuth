@@ -1,0 +1,6 @@
+{% extends 'base.html' %} {% block content %}
+<h3>Hi Guest! Please login to become part of this understanding...</h3>
+<a href="{% url 'dashboard' %}">Back to dashboard...</a>
+<br />
+<a href="{% url 'login' %}">Login</a>
+{% endblock %}

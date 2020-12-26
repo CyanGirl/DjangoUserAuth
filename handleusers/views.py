@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.urls import reverse
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm,HobbyForm
+from .models import Hobby
 
 # Create your views here.
 
@@ -57,3 +58,45 @@ def register(request):
 
             
         return redirect(reverse("dashboard"))
+
+
+def addHobby(request):
+
+    if request.user.is_authenticated:
+
+        if request.method=="POST":
+            hobbyform=HobbyForm(data=request.POST)
+            
+
+            if hobbyform.is_valid():
+                
+                hobbyf=hobbyform.cleaned_data
+                hobbyname=hobbyf['hobbyname']
+                username=request.user
+                checksave=Hobby.objects.create(user=username,hobbyname=hobbyname)
+
+        else:
+            
+            context={
+                'form':HobbyForm,
+            }
+            return render (request, 'handleusers/hobby.html',context=context)
+
+    else:
+        return render(request,'handleusers/requestlogin.html')
+
+    return redirect(reverse('dashboard'))
+
+def viewhobby(request):
+    if request.user.is_authenticated:
+
+        hobbylist=request.user.hobby_set.all()
+        listings=[hobby.hobbyname for hobby in hobbylist]
+    
+        context={
+            'list':listings,
+        }
+        return render(request,'handleusers/hobbylist.html',context=context)
+
+    else:
+        return render(request,'handleusers/requestlogin.html')
