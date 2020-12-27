@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.http import HttpResponse
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -90,11 +91,22 @@ def addHobby(request):
 def viewhobby(request):
     if request.user.is_authenticated:
 
+        if request.method=="POST":
+
+            hobbyid=request.POST.get('hobbyname')
+            #get the instance from the hobby id
+            instance=Hobby.objects.get(id=hobbyid)
+            
+            if instance: #on successful retrieval
+                instance.delete()
+                print(f"{instance} deleted...")
+            else:
+                print("Error")
+
         hobbylist=request.user.hobby_set.all()
-        listings=[hobby.hobbyname for hobby in hobbylist]
     
         context={
-            'list':listings,
+            'list':hobbylist,
         }
         return render(request,'handleusers/hobbylist.html',context=context)
 

@@ -1,8 +1,4 @@
 _pycache_
 UserAuth/_pycache_
-db.sqlite3
-UserAuth/settings.py
-settings.py
 .vscode
 handleusers/_pycache_
-handleusers/migrations

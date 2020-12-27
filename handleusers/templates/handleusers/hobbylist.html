@@ -2,11 +2,16 @@
 <br />
 <h3>Hi {{user}}</h3>
 <p>Here is your hobby list....</p>
-{% for hobby in list %}
-<br />---> {{hobby}}
-<br />
-{% endfor %}
-<br />
+<form method="POST" action="{ % url 'viewhobby' %}">
+  {% csrf_token %} {% for hobby in list %}
+  <br />{{forloop.counter}}. {{hobby.hobbyname}}
+  <button type="submit" name="hobbyname" id="hobby" value="{{hobby.id}}">
+    Delete
+  </button>
+  <br />
+  {% endfor %}
+  <br />
+</form>
 <a href="{% url 'hobby' %}">Add Hobby</a>
 <a href="{% url 'dashboard' %}">Back to dashboard...</a>
 {% endblock %}
